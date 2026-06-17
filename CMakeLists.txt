@@ -1,3 +1,5 @@
+project(ComplexWalletMgr)
+
 add_executable(ComplexWalletMgr)
 
 target_sources(ComplexWalletMgr
