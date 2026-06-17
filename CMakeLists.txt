@@ -1,9 +1,9 @@
-project(ComplexWalletMgr)
+project(Complexwalletmgr)
 cmake_minimum_required(VERSION 4.3)
 
-add_executable(ComplexWalletMgr)
+add_executable(Complexwalletmgr)
 
-target_sources(ComplexWalletMgr
+target_sources(Complexwalletmgr
   PRIVATE
     tools/complexwalletmgr.cpp
 )
