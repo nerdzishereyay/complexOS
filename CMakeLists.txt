@@ -6,10 +6,9 @@ find_package(ftxui
 )
 add_executable(complexwalletmgr tools/complexwalletmgr.cpp)
 target_link_libraries(complexwalletmgr
-  PRIVATE
-    ftxui::screen
-    ftxui::dom
-    ftxui::component
+  PRIVATE ftxui::screen
+  PRIVATE ftxui::dom
+  PRIVATE ftxui::component
 )
 
 target_sources(complexwalletmgr
