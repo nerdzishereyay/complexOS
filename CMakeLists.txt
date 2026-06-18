@@ -1,10 +1,17 @@
-project(complexwalletmgr)
+project(complexwalletmgr
+  LANGUAGES CXX
+  VERSION 0.0.1
+)
 cmake_minimum_required(VERSION 4.3)
 
 
 add_executable(complexwalletmgr tools/complexwalletmgr.cpp)
 
-find_package(ftxui REQUIRED)
+include(FetchContent)
+FetchContent_Delcare(ftxui
+    GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui
+    GIT_TAG v3.0.0
+)
 
 target_link_libraries(complexwalletmgr
   PRIVATE ftxui::screen
