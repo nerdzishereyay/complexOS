@@ -9,7 +9,7 @@ target_link_libraries(complexwalletmgr
     ftxui.component
 )
 
-target_sources(Complexwalletmgr
+target_sources(complexwalletmgr
   PRIVATE
     tools/complexwalletmgr.cpp
 )
