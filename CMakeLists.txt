@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 4.3)
 add_executable(complexwalletmgr tools/complexwalletmgr.cpp)
 
 include(FetchContent)
-FetchContent_Delcare(ftxui
+FetchContent_Declare(ftxui
     GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui
     GIT_TAG v3.0.0
 )
