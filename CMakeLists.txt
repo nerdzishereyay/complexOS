@@ -12,6 +12,7 @@ FetchContent_Declare(ftxui
     GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui
     GIT_TAG v3.0.0
 )
+FetchContent_MakeAvailable(ftxui)
 
 target_link_libraries(complexwalletmgr
   PRIVATE ftxui::screen
