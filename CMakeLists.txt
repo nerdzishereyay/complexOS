@@ -1,15 +1,14 @@
-project(Complexwalletmgr)
+project(complexwalletmgr)
 cmake_minimum_required(VERSION 4.3)
 
-add_executable(Complexwalletmgr)
-
-
-
-
-
-add_library(component
-  include/ftxui/component/screen_interactive.hpp
+add_executable(complexwalletmgr)
+target_link_libraries(complexwalletmgr
+  PRIVATE
+    ftxui.screen
+    ftxui.dom
+    ftxui.component
 )
+
 target_sources(Complexwalletmgr
   PRIVATE
     tools/complexwalletmgr.cpp
