@@ -14,6 +14,7 @@
 #include "ftxui/component/component_base.hpp"  // for ComponentBase
 #include "ftxui/dom/elements.hpp"
 
+/*
 std::string logo = 
     R"(        ____   _____  __          __   _ _      _     __  __                                   
        / __ \ / ____| \ \        / /  | | |    | |   |  \/  |                                  
@@ -32,9 +33,9 @@ int main() {
   auto Buttons = 
     Container::Vertical({
           Container::Horizontal({
-                  Button("Create", ButtonOption::Ascii()),
-                  Button("List", ButtonOption::Ascii()),
-                  Button("Delete", ButtonOption::Ascii()),
+                  Button("Create", , ButtonOption::Ascii()),
+                  Button("List", action2, ButtonOption::Ascii()),
+                  Button("Delete", action3, ButtonOption::Ascii()),
           }),
       }) | border;
   Element
@@ -43,3 +44,42 @@ int main() {
   screen.Loop(Buttons);
   return 0;
 }
+ 
+*/
+
+int main() {
+  int value = 0;
+  auto action = [&] { value++; };
+  auto action_renderer =
+      Renderer([&] { return text("count = " + std::to_string(value)); });
+
+  auto buttons =
+                   Renderer([] { return separator(); }),
+              Container::Vertical({
+                  Button("Simple 1", action, ButtonOption::Simple()),
+                  Button("Simple 2", action, ButtonOption::Simple()),
+                  Button("Simple 3", action, ButtonOption::Simple()),
+              }),
+              Renderer([] { return separator(); }),
+              Container::Vertical({
+                  Button("Animated 1", action, ButtonOption::Animated()),
+                  Button("Animated 2", action, ButtonOption::Animated()),
+                  Button("Animated 3", action, ButtonOption::Animated()),
+              }),
+              Renderer([] { return separator(); }),
+              Container::Vertical({
+                  Button("Animated 4", action,
+                         ButtonOption::Animated(Color::Red)),
+                  Button("Animated 5", action,
+                         ButtonOption::Animated(Color::Green)),
+                  Button("Animated 6", action,
+                         ButtonOption::Animated(Color::Blue)),
+              }),
+          }),
+      }) |
+      border;
+  auto screen = ScreenInteractive::Fullscreen();
+  screen.Loop(buttons);
+  return 0;
+}
+
