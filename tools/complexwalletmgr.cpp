@@ -13,9 +13,6 @@
 #include "ftxui/component/component.hpp"  // for Button, Horizontal, Renderer
 #include "ftxui/component/component_base.hpp"  // for ComponentBase
 #include "ftxui/dom/elements.hpp"
-#define action1
-#define action2
-#define action3
 
 std::string logo = 
     R"(        ____   _____  __          __   _ _      _     __  __                                   
@@ -35,9 +32,9 @@ int main() {
   auto Buttons = 
     Container::Vertical({
           Container::Horizontal({
-                  Button("Create", action1, ButtonOption::Ascii()),
-                  Button("List", action2, ButtonOption::Ascii()),
-                  Button("Delete", action3, ButtonOption::Ascii()),
+                  Button("Create", ButtonOption::Ascii()),
+                  Button("List", ButtonOption::Ascii()),
+                  Button("Delete", ButtonOption::Ascii()),
           }),
       }) | border;
   Element
