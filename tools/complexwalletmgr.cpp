@@ -59,7 +59,7 @@ using namespace ftxui;
 // add a border around the button, and finally `flex` to make the button fill
 // the available space.
 ButtonOption Style() {
-  auto option = ButtonOption::Animated();
+  auto option = ButtonOption::Ascii();
   option.transform = [](const EntryState& s) {
     auto element = text(s.label);
     if (s.focused) {
