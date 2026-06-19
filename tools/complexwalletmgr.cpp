@@ -46,40 +46,59 @@ int main() {
 }
  
 */
+// Copyright 2020 Arthur Sonzogni. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found in
+// the LICENSE file.
 
-int main() {
-  int value = 0;
-  auto action = [&] { value++; };
-  auto action_renderer =
-      Renderer([&] { return text("count = " + std::to_string(value)); });
+using namespace ftxui;
 
-  auto buttons =
-                   Renderer([] { return separator(); }),
-              Container::Vertical({
-                  Button("Simple 1", action, ButtonOption::Simple()),
-                  Button("Simple 2", action, ButtonOption::Simple()),
-                  Button("Simple 3", action, ButtonOption::Simple()),
-              }),
-              Renderer([] { return separator(); }),
-              Container::Vertical({
-                  Button("Animated 1", action, ButtonOption::Animated()),
-                  Button("Animated 2", action, ButtonOption::Animated()),
-                  Button("Animated 3", action, ButtonOption::Animated()),
-              }),
-              Renderer([] { return separator(); }),
-              Container::Vertical({
-                  Button("Animated 4", action,
-                         ButtonOption::Animated(Color::Red)),
-                  Button("Animated 5", action,
-                         ButtonOption::Animated(Color::Green)),
-                  Button("Animated 6", action,
-                         ButtonOption::Animated(Color::Blue)),
-              }),
-          }),
-      }) |
-      border;
-  auto screen = ScreenInteractive::Fullscreen();
-  screen.Loop(buttons);
-  return 0;
+// This is a helper function to create a button with a custom style.
+// The style is defined by a lambda function that takes an EntryState and
+// returns an Element.
+// We are using `center` to center the text inside the button, then `border` to
+// add a border around the button, and finally `flex` to make the button fill
+// the available space.
+ButtonOption Style() {
+  auto option = ButtonOption::Animated();
+  option.transform = [](const EntryState& s) {
+    auto element = text(s.label);
+    if (s.focused) {
+      element |= bold;
+    }
+    return element | center | borderEmpty | flex;
+  };
+  return option;
 }
 
+int main() {
+  int value = 50;
+
+  // clang-format off
+  auto btn_dec_01 = Button("-1", [&] { value -= 1; }, Style());
+  auto btn_inc_01 = Button("+1", [&] { value += 1; }, Style());
+  auto btn_dec_10 = Button("-10", [&] { value -= 10; }, Style());
+  auto btn_inc_10 = Button("+10", [&] { value += 10; }, Style());
+  // clang-format on
+
+  // The tree of components. This defines how to navigate using the keyboard.
+  // The selected `row` is shared to get a grid layout.
+  int row = 0;
+  auto buttons = Container::Vertical({
+      Container::Horizontal({btn_dec_01, btn_inc_01}, &row) | flex,
+      Container::Horizontal({btn_dec_10, btn_inc_10}, &row) | flex,
+  });
+
+  // Modify the way to render them on screen:
+  auto component = Renderer(buttons, [&] {
+    return vbox({
+               text("value = " + std::to_string(value)),
+               separator(),
+               buttons->Render() | flex,
+           }) |
+           flex | border;
+  });
+
+  auto screen = App::FitComponent();
+  screen.Loop(component);
+  return 0;
+}
