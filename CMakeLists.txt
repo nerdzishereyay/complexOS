@@ -4,6 +4,7 @@ project(complexwalletmgr
 )
 cmake_minimum_required(VERSION 4.3)
 
+set(CMAKE_CXX_COMPILER $(which g++))
 
 add_executable(complexwalletmgr tools/complexwalletmgr.cpp)
 
