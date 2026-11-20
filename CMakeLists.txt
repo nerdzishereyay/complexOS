@@ -17,7 +17,8 @@ FetchContent_Declare(ftxui
 FetchContent_MakeAvailable(ftxui)
 
 target_link_libraries(complexwalletmgr PRIVATE
-    ftxui::ftxui
+    ftxui::dom
+    ftxui::component
 )
 
 target_sources(complexwalletmgr
